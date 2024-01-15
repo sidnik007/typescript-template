@@ -23,8 +23,7 @@ When('I edit {string} to {string}', (oldText: string, newText: string) => {
 });
 
 Then('I should not see {string} in the Todo list', (text: string) => {
-    !cy.get('ul').should('contain', text);
-
+    cy.get('ul').should('not.contain', text);
 });
 
 function visitLink() {
@@ -37,6 +36,6 @@ function addTodo(text: string) {
 }
 
 function editTodo(newText: string) {
-    cy.get('input[placeholder="Enter a todo"]').type(newText);
+    cy.get('input[placeholder="Enter a todo"]').clear().type(newText);
     cy.get('button').contains('Edit Todo').click();
 }
