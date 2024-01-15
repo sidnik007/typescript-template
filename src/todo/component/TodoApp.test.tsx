@@ -64,4 +64,14 @@ describe('TodoApp', () => {
             expect(screen.getByText('Send email')).toBeInTheDocument();
         })
     })
+
+    // on selecting the todo item
+    // ---- the text should be blue
+    // ---- the text field should be prefilled with selected text
+    // ---- the button should have text "Edit Todo"
+    // on deselecting the todo item
+    // ---- the text should be black
+    // ---- the text field should be empty
+    // ---- the button should have text "Add Todo"
+    // the todo item is edited
 })
