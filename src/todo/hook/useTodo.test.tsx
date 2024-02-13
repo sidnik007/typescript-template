@@ -1,7 +1,6 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from "redux-thunk";
-import {act} from "@testing-library/react";
-import {renderHook} from "@testing-library/react-hooks";
+import {act, renderHook} from "@testing-library/react";
 import {Provider} from "react-redux";
 import React from "react";
 import {useTodo} from "./useTodo";
