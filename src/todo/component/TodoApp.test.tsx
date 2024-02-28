@@ -85,6 +85,25 @@ describe('TodoApp', () => {
                 fireEvent.click(todoItem)
                 expect(todoItem).toHaveStyle('color: blue')
             })
+            it('should prefill the text with selected todo item', () => {
+                const initialState = {
+                    todos: {
+                        todo: [{id: 1, text: 'Send email'}],
+                        status: 'idle',
+                    },
+                };
+                const store = mockStore(initialState);
+
+                render(
+                    <Provider store={store}>
+                        <TodoApp/>
+                    </Provider>
+                );
+                const todoItem = screen.getByText('Send email')
+                fireEvent.click(todoItem)
+                const input = screen.getByPlaceholderText('Enter a todo') as HTMLInputElement
+                expect(input.value).toBe('Send email')
+            })
         })
     })
 
