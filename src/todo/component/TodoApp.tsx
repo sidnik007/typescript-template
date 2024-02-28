@@ -28,7 +28,7 @@ const TodoApp: React.FC = () => {
                 placeholder="Enter a todo"
                 style={styles.input}
             />
-            <button style={styles.button} onClick={handleTodo}>Add Todo</button>
+            <button style={styles.button} onClick={handleTodo}>{selectedTodoId ? 'Edit Todo' : 'Add Todo'}</button>
             <ul>
                 {todos?.map((todo) => (
                     <li
