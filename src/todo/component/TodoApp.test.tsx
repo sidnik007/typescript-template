@@ -4,7 +4,7 @@ import {fireEvent, render, screen} from "@testing-library/react";
 import React from "react";
 import {Provider} from "react-redux";
 import TodoApp from "./TodoApp";
-import {addTodo} from "../redux/todoSlice";
+import {addTodo, editTodo} from "../redux/todoSlice";
 
 
 const middlewares = [thunk];
@@ -67,6 +67,7 @@ describe('TodoApp', () => {
 
     describe('Edit Todo', () => {
         let todoItem: HTMLElement
+        let store
         beforeEach(() => {
             const initialState = {
                 todos: {
@@ -74,7 +75,7 @@ describe('TodoApp', () => {
                     status: 'idle',
                 },
             };
-            const store = mockStore(initialState);
+            store = mockStore(initialState);
 
             render(
                 <Provider store={store}>
@@ -113,7 +114,13 @@ describe('TodoApp', () => {
                 expect(button.textContent).toBe('Add Todo')
             });
         })
-
+        xit('dispatches a edit todo action', () => {
+            const input = screen.getByPlaceholderText('Enter a todo') as HTMLInputElement
+            fireEvent.input(input, {target: {value: 'Send email at 10'}})
+            const button = screen.getByRole('button', {name: /Edit Todo/i}) as HTMLButtonElement
+            fireEvent.click(button)
+            expect(store.getActions()).toContainEqual(editTodo({id: 1, text: 'Send email at 10'}));
+        })
     })
 
     // on selecting the todo item

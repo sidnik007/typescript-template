@@ -16,11 +16,14 @@ export const todoSlice = createSlice({
                 text: action.payload,
             }
             state.todo.push(newTodo)
+        },
+        editTodo: (state, action: PayloadAction<{ id: number, text: string }>) => {
+
         }
     }
 })
 
-export const {addTodo} = todoSlice.actions;
+export const {addTodo, editTodo} = todoSlice.actions;
 
 const todoReducer = todoSlice.reducer;
 export default todoReducer;
