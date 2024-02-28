@@ -65,6 +65,29 @@ describe('TodoApp', () => {
         })
     })
 
+    describe('Edit Todo', () => {
+        describe('on selecting the todo item', () => {
+            it('changes the text color to blue', () => {
+                const initialState = {
+                    todos: {
+                        todo: [{id: 1, text: 'Send email'}],
+                        status: 'idle',
+                    },
+                };
+                const store = mockStore(initialState);
+
+                render(
+                    <Provider store={store}>
+                        <TodoApp/>
+                    </Provider>
+                );
+                const todoItem = screen.getByText('Send email')
+                fireEvent.click(todoItem)
+                expect(todoItem).toHaveStyle('color: blue')
+            })
+        })
+    })
+
     // on selecting the todo item
     // ---- the text should be blue
     // ---- the text field should be prefilled with selected text
