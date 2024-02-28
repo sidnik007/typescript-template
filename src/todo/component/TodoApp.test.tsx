@@ -145,5 +145,10 @@ describe('TodoApp', () => {
             const deleteButton = screen.getByRole('button', {name: /Delete Todo/i}) as HTMLButtonElement
             expect(deleteButton).toBeVisible()
         })
+        it('is disabled by default', () => {
+            createEmptyTodoList()
+            const deleteButton = screen.getByRole('button', {name: /Delete Todo/i}) as HTMLButtonElement
+            expect(deleteButton).toBeDisabled()
+        })
     })
 })
