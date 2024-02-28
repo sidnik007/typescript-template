@@ -1,7 +1,7 @@
 import {useCallback} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../../store";
-import {addTodo} from "../redux/todoSlice";
+import {addTodo, editTodo} from "../redux/todoSlice";
 
 export const useTodo = () => {
     const todos = useSelector((state: RootState) => state.todos.todo);
@@ -12,8 +12,13 @@ export const useTodo = () => {
         dispatch(addTodo(text));
     }, [dispatch]);
 
+    const editCurrentTodo = useCallback((id: number, text: string) => {
+        dispatch(editTodo({id: id, text: text}))
+    }, [dispatch]);
     return {
         todos,
-        addNewTodo
+        addNewTodo,
+        editCurrentTodo
+
     }
 }
