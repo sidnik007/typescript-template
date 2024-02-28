@@ -98,21 +98,22 @@ describe('TodoApp', () => {
             });
         })
         describe('on deselecting the todo item', () => {
-            it('changes the color black', () => {
+            beforeEach(() => {
                 fireEvent.click(todoItem)
+            })
+            it('changes the color black', () => {
                 expect(todoItem).toHaveStyle('color: black')
             })
             it('removes the prefilled text', () => {
-                fireEvent.click(todoItem)
                 const input = screen.getByPlaceholderText('Enter a todo') as HTMLInputElement
                 expect(input.value).toBe('')
             })
             it('changes the text of the button to Add Todo', () => {
-                fireEvent.click(todoItem)
                 const button = screen.getByRole('button', {name: /Add Todo/i}) as HTMLButtonElement
                 expect(button.textContent).toBe('Add Todo')
             });
         })
+
     })
 
     // on selecting the todo item
