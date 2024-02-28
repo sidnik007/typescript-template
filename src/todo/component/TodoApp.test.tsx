@@ -92,6 +92,10 @@ describe('TodoApp', () => {
                 const input = screen.getByPlaceholderText('Enter a todo') as HTMLInputElement
                 expect(input.value).toBe('Send email')
             })
+            it('changes the text of the button to Edit text', () => {
+                const button = screen.getByRole('button', {name: /Edit Todo/i}) as HTMLButtonElement
+                expect(button.textContent).toBe('Edit Todo')
+            });
         })
     })
 
