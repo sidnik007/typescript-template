@@ -102,6 +102,11 @@ describe('TodoApp', () => {
                 fireEvent.click(todoItem)
                 expect(todoItem).toHaveStyle('color: black')
             })
+            it('removes the prefilled text', () => {
+                fireEvent.click(todoItem)
+                const input = screen.getByPlaceholderText('Enter a todo') as HTMLInputElement
+                expect(input.value).toBe('')
+            })
         })
     })
 
