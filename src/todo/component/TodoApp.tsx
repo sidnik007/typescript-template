@@ -18,6 +18,7 @@ const TodoApp: React.FC = () => {
     function handleSelectedTodo(todo: Todo) {
         if (selectedTodoId === todo.id) {
             setSelectedTodoId(undefined)
+            setInput('')
         } else {
             setSelectedTodoId(todo.id)
             setInput(todo.text)
