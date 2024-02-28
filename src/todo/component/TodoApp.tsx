@@ -14,8 +14,9 @@ const TodoApp: React.FC = () => {
         }
     }
 
-    function handleSelectedTodo(id: number) {
+    function handleSelectedTodo(id: number, text: string) {
         setSelectedTodoId(id)
+        setInput(text)
     }
 
     return (
@@ -31,7 +32,7 @@ const TodoApp: React.FC = () => {
                 {todos?.map((todo) => (
                     <li
                         key={todo.id}
-                        onClick={() => handleSelectedTodo(todo.id)}
+                        onClick={() => handleSelectedTodo(todo.id, todo.text)}
                         style={selectedTodoId === todo.id ? {color: 'blue'} : undefined}
                     >{todo.text}</li>
                 ))}
