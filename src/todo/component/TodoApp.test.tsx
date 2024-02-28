@@ -67,7 +67,8 @@ describe('TodoApp', () => {
 
     describe('Edit Todo', () => {
         describe('on selecting the todo item', () => {
-            it('changes the text color to blue', () => {
+            let todoItem: HTMLElement
+            beforeEach(() => {
                 const initialState = {
                     todos: {
                         todo: [{id: 1, text: 'Send email'}],
@@ -81,26 +82,13 @@ describe('TodoApp', () => {
                         <TodoApp/>
                     </Provider>
                 );
-                const todoItem = screen.getByText('Send email')
+                todoItem = screen.getByText('Send email')
                 fireEvent.click(todoItem)
+            })
+            it('changes the text color to blue', () => {
                 expect(todoItem).toHaveStyle('color: blue')
             })
             it('should prefill the text with selected todo item', () => {
-                const initialState = {
-                    todos: {
-                        todo: [{id: 1, text: 'Send email'}],
-                        status: 'idle',
-                    },
-                };
-                const store = mockStore(initialState);
-
-                render(
-                    <Provider store={store}>
-                        <TodoApp/>
-                    </Provider>
-                );
-                const todoItem = screen.getByText('Send email')
-                fireEvent.click(todoItem)
                 const input = screen.getByPlaceholderText('Enter a todo') as HTMLInputElement
                 expect(input.value).toBe('Send email')
             })
