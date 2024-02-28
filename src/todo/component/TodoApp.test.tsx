@@ -10,19 +10,24 @@ import {addTodo, editTodo} from "../redux/todoSlice";
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
+function createEmptyTodoList() {
+    const initialState = {todos: {todos: [], status: 'idle'}};
+    const store = mockStore(initialState);
+
+    render(
+        <Provider store={store}>
+            <TodoApp/>
+        </Provider>
+    );
+    return store;
+}
+
 describe('TodoApp', () => {
     describe('Add a todo', () => {
         let store;
 
         beforeEach(() => {
-            const initialState = {todos: {todos: [], status: 'idle'}};
-            store = mockStore(initialState);
-
-            render(
-                <Provider store={store}>
-                    <TodoApp/>
-                </Provider>
-            );
+            store = createEmptyTodoList();
         })
 
 
@@ -133,4 +138,12 @@ describe('TodoApp', () => {
     // ---- the text field should be empty
     // ---- the button should have text "Add Todo"
     // the todo item is edited
+
+    describe('Delete todo', () => {
+        it('delete button exist', () => {
+            createEmptyTodoList()
+            const deleteButton = screen.getByRole('button', {name: /Delete Todo/i}) as HTMLButtonElement
+            expect(deleteButton).toBeVisible()
+        })
+    })
 })
