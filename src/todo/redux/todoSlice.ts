@@ -18,6 +18,10 @@ export const todoSlice = createSlice({
             state.todo.push(newTodo)
         },
         editTodo: (state, action: PayloadAction<{ id: number, text: string }>) => {
+            const todoItem = state.todo.find(t => t.id === action.payload.id)
+            if (todoItem) {
+                todoItem.text = action.payload.text
+            }
 
         }
     }
