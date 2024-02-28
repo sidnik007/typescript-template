@@ -114,12 +114,13 @@ describe('TodoApp', () => {
                 expect(button.textContent).toBe('Add Todo')
             });
         })
-        xit('dispatches a edit todo action', () => {
+        it('dispatches a edit todo action', () => {
             const input = screen.getByPlaceholderText('Enter a todo') as HTMLInputElement
             fireEvent.input(input, {target: {value: 'Send email at 10'}})
             const button = screen.getByRole('button', {name: /Edit Todo/i}) as HTMLButtonElement
             fireEvent.click(button)
             expect(store.getActions()).toContainEqual(editTodo({id: 1, text: 'Send email at 10'}));
+            expect(button.textContent).toBe('Add Todo')
         })
     })
 

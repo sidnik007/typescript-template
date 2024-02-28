@@ -6,13 +6,17 @@ import {Todo} from "../todo";
 const TodoApp: React.FC = () => {
     const [input, setInput] = useState('')
     const [selectedTodoId, setSelectedTodoId] = useState(0)
-    const {todos, addNewTodo} = useTodo();
+    const {todos, addNewTodo, editCurrentTodo} = useTodo();
 
     const handleTodo = () => {
-        if (input.trim() != '') {
+        if (input.trim() == '') return;
+        if (selectedTodoId) {
+            editCurrentTodo(selectedTodoId, input)
+        } else {
             addNewTodo(input);
-            setInput('');
         }
+        setInput('');
+        setSelectedTodoId(undefined)
     }
 
     function handleSelectedTodo(todo: Todo) {
