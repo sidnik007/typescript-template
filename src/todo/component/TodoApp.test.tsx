@@ -66,25 +66,25 @@ describe('TodoApp', () => {
     })
 
     describe('Edit Todo', () => {
-        describe('on selecting the todo item', () => {
-            let todoItem: HTMLElement
-            beforeEach(() => {
-                const initialState = {
-                    todos: {
-                        todo: [{id: 1, text: 'Send email'}],
-                        status: 'idle',
-                    },
-                };
-                const store = mockStore(initialState);
+        let todoItem: HTMLElement
+        beforeEach(() => {
+            const initialState = {
+                todos: {
+                    todo: [{id: 1, text: 'Send email'}],
+                    status: 'idle',
+                },
+            };
+            const store = mockStore(initialState);
 
-                render(
-                    <Provider store={store}>
-                        <TodoApp/>
-                    </Provider>
-                );
-                todoItem = screen.getByText('Send email')
-                fireEvent.click(todoItem)
-            })
+            render(
+                <Provider store={store}>
+                    <TodoApp/>
+                </Provider>
+            );
+            todoItem = screen.getByText('Send email')
+            fireEvent.click(todoItem)
+        })
+        describe('on selecting the todo item', () => {
             it('changes the text color to blue', () => {
                 expect(todoItem).toHaveStyle('color: blue')
             })
@@ -96,6 +96,12 @@ describe('TodoApp', () => {
                 const button = screen.getByRole('button', {name: /Edit Todo/i}) as HTMLButtonElement
                 expect(button.textContent).toBe('Edit Todo')
             });
+        })
+        describe('on deselecting the todo item', () => {
+            it('changes the color black', () => {
+                fireEvent.click(todoItem)
+                expect(todoItem).toHaveStyle('color: black')
+            })
         })
     })
 
