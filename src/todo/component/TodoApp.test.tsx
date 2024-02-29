@@ -149,6 +149,7 @@ describe('TodoApp', () => {
             createEmptyTodoList()
             const deleteButton = screen.getByRole('button', {name: /Delete Todo/i}) as HTMLButtonElement
             expect(deleteButton).toBeDisabled()
+            expect(deleteButton).toHaveStyle('color: white')
         })
     })
 })
