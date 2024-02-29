@@ -75,3 +75,10 @@ describe('TodoApp', () => {
     // ---- the button should have text "Add Todo"
     // the todo item is edited
 })
+
+
+// const input = screen.getByPlaceholderText('Enter a todo') as HTMLInputElement
+// fireEvent.input(input, {target: {value: 'Write blog'}});
+// const button = screen.getByRole('button', {name: /Edit Todo/i})
+// fireEvent.click(button)
+// expect(store.getActions()).toContainEqual(editTodo({id: 1, text: 'Write blog'}));

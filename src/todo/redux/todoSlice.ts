@@ -16,7 +16,9 @@ export const todoSlice = createSlice({
                 text: action.payload,
             }
             state.todo.push(newTodo)
-        }
+        },
+        // editTodo: (state, action: PayloadAction<{ id: number, text: string }>) => {
+        // }
     }
 })
 
