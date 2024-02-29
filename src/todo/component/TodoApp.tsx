@@ -40,9 +40,9 @@ const TodoApp: React.FC = () => {
             <button style={styles.button} onClick={handleTodo}>{selectedTodoId ? 'Edit Todo' : 'Add Todo'}</button>
             <button style={{
                 ...styles.button,
-                backgroundColor: true ? '#ccc' : styles.button.backgroundColor,
+                backgroundColor: !selectedTodoId ? '#ccc' : styles.button.backgroundColor,
             }}
-                    disabled={true}>Delete Todo
+                    disabled={!selectedTodoId}>Delete Todo
             </button>
             <ul>
                 {todos?.map((todo) => (
