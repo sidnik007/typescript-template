@@ -22,6 +22,23 @@ function createEmptyTodoList() {
     return store;
 }
 
+function createTodoListWithOneItem() {
+    const initialState = {
+        todos: {
+            todo: [{id: 1, text: 'Send email'}],
+            status: 'idle',
+        },
+    };
+    let store = mockStore(initialState);
+
+    render(
+        <Provider store={store}>
+            <TodoApp/>
+        </Provider>
+    );
+    return store;
+}
+
 describe('TodoApp', () => {
     describe('Add a todo', () => {
         let store;
@@ -74,19 +91,7 @@ describe('TodoApp', () => {
         let todoItem: HTMLElement
         let store
         beforeEach(() => {
-            const initialState = {
-                todos: {
-                    todo: [{id: 1, text: 'Send email'}],
-                    status: 'idle',
-                },
-            };
-            store = mockStore(initialState);
-
-            render(
-                <Provider store={store}>
-                    <TodoApp/>
-                </Provider>
-            );
+            store = createTodoListWithOneItem();
             todoItem = screen.getByText('Send email')
             fireEvent.click(todoItem)
         })
@@ -151,5 +156,13 @@ describe('TodoApp', () => {
             expect(deleteButton).toBeDisabled()
             expect(deleteButton).toHaveStyle('color: white')
         })
+        it('is enabled when a todo item is clicked', () => {
+            createTodoListWithOneItem()
+            const todoItem = screen.getByText('Send email')
+            fireEvent.click(todoItem)
+            const deleteButton = screen.getByRole('button', {name: /Delete Todo/i}) as HTMLButtonElement
+            expect(deleteButton).toBeEnabled()
+
+        });
     })
 })
