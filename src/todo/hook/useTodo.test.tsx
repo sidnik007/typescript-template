@@ -1,30 +1,28 @@
-import configureMockStore from 'redux-mock-store';
-import thunk from "redux-thunk";
-import {act, renderHook} from "@testing-library/react";
-import {Provider} from "react-redux";
+import { act, renderHook } from "@testing-library/react";
+import { Provider } from "react-redux";
 import React from "react";
-import {useTodo} from "./useTodo";
-import {addTodo} from "../redux/todoSlice";
+import { useTodo } from "./useTodo";
+import { Todo } from "../todo";
+import { RootState, setupStore } from "../../store";
 
-const middlewares = [thunk];
-const mockStore = configureMockStore(middlewares);
-describe('useTodo hook action dispatching', () => {
-    const initialState = {todos: {todos: [], status: 'idle'}};
-    const store = mockStore(initialState);
+describe("useTodo hook action dispatching", () => {
+  const initialState: RootState = {
+    todos: { todo: [] as Todo[], status: "idle" as const },
+  };
+  const store = setupStore(initialState);
 
-    it('dispatches addTodo action with correct payload', () => {
-        const store = mockStore(initialState);
+  it("adds a new todo when called", () => {
+    const wrapper = ({ children }) => (
+      <Provider store={store}>{children}</Provider>
+    );
 
-        const wrapper = ({children}) => (
-            <Provider store={store}>{children}</Provider>
-        );
+    const { result } = renderHook(() => useTodo(), { wrapper });
+    act(() => {
+      result.current.addNewTodo("Send email");
+    });
 
-        const {result} = renderHook(() => useTodo(), {wrapper});
-        act(() => {
-            result.current.addNewTodo('Send email');
-        });
-
-        expect(store.getActions()).toContainEqual(addTodo('Send email'));
-
-    })
-})
+    expect(store.getState().todos.todo).toEqual([
+      { id: expect.any(Number), text: "Send email" },
+    ]);
+  });
+});
