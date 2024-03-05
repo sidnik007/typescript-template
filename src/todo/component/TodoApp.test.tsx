@@ -1,22 +1,21 @@
-import thunk from "redux-thunk";
-import configureMockStore from "redux-mock-store";
 import {fireEvent, render, screen} from "@testing-library/react";
 import React from "react";
 import {Provider} from "react-redux";
 import TodoApp from "./TodoApp";
-import {addTodo} from "../redux/todoSlice";
-
-
-const middlewares = [thunk];
-const mockStore = configureMockStore(middlewares);
+import { AppStore, setupStore } from '../../store';
+import { Todo } from '../todo';
 
 describe('TodoApp', () => {
     describe('Add a todo', () => {
-        let store;
+        let store: AppStore;
 
         beforeEach(() => {
-            const initialState = {todos: {todos: [], status: 'idle'}};
-            store = mockStore(initialState);
+            store = setupStore({
+                todos: {
+                    todo: [] as Todo[],
+                    status: 'idle',
+                }
+            });
 
             render(
                 <Provider store={store}>
@@ -36,25 +35,24 @@ describe('TodoApp', () => {
             expect(button).toBeInTheDocument()
         })
 
-        it('adds todo to the state', () => {
+        it('adds todo to the list', () => {
             const input = screen.getByPlaceholderText('Enter a todo')
             fireEvent.input(input, {target: {value: 'Send email'}});
 
             const button = screen.getByRole('button', {name: /Add Todo/i})
             fireEvent.click(button)
 
-            expect(store.getActions()).toContainEqual(addTodo('Send email'));
+            expect(screen.getByText('Send email')).toBeInTheDocument();
         })
     })
     describe('display todo list', () => {
         it('displays added todo in the list', () => {
-            const initialState = {
-                todos: {
-                    todo: [{id: 1, text: 'Send email'}],
-                    status: 'idle',
-                },
-            };
-            const store = mockStore(initialState);
+            const store = setupStore({
+              todos: {
+                todo: [{ id: 1, text: "Send email" }],
+                status: "idle",
+              },
+            });
 
             render(
                 <Provider store={store}>
